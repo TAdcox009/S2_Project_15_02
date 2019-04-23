@@ -37,15 +37,44 @@ window.addEventListener("load", function () {
       var changingCells = document.querySelectorAll('input[class="sum]');
       // b. For every item in the changingCells collection, adds an onchange event handler that runs calcExp() function.
       for (var i = 0; i < changingCells.length; i++) {
-
+            changingCells[i].onchange = calcExp;
       }
 
-      // c. For the button with the ID “submitButton”, adds an event handler for the click event that runs the validateSummary() function when the button is clicked.
-
-
+       // c. For the button with the ID “submitButton”, adds an event handler for the click event that runs the validateSummary() function when the button is clicked.
+      document.getElementById("submitButton").onclick = validateSummary;
 });
 
+//6. Kay wants a customized validation message if employees neglect to fill out the summary field that provides a summary of the travel expenses. Create the validateSummary() function that dis- plays the message “You must include a summary of the trip in your report.” if the validation state of the summary field value is missing; otherwise set the custom validation message to an empty text string.
+function validateSummary() {
+      var validate = document.getElementById("summary");
+      if (validate.validity.valueMissing) {
+            validate.setCustomValidity("You must include a summary of the trip in your report.")
+      } else {
+            validate.setCustomValidity("");
+      };
+}
 
+//7. Create the calcClass() function with a single parameter sumclass. The purpose of this function is to sum the values of input elements belonging to the sumClass class of elements. Add the following commands to the function:
+function calcClass(sumClass) {
+//a. Create a variable named sumFields containing the object collection of all elements belonging to the sumClass class.
+var sumFields = document.getElementsByClassName("sumClass");
+
+//b. Create a variable named sumtotal that will be used to keep a running total of the total values in the input elements in the sumFields object collection. Set the initial value of sumTotal to 0. 
+var sumTotal = 0;
+
+//c. Loop through the items in the sumFields object collection. For each item, declare a variable named itemvalue equal to the numeric value of the current input element in the sumFields array. (Hint: Use the parseFloat() function to extract the numeric value.) If itemValue is a numeric value, add it to itemValue. (Hint: Use the isNaN() function to determine whether itemValue is or is not a number.)
+for (var i = 0; i < sumFields.length; i++) {
+      var itemValue = parseFloat(sumFields);
+      if (itemValue === isNaN()) {
+
+      } else {
+
+      }
+}
+
+//d. After the for loop, return the value of sumTotal.
+return sumTotal;
+}
 
 
 

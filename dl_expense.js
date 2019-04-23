@@ -31,6 +31,21 @@
       
 */
 
+// 5. Return to the dl_expenses.js file in your editor. Directly below the initial comment section, add an event listener for the load event. Apply an anonymous function to the load event that does the following: 
+window.addEventListener("load", function () {
+      //a. Declares a variable named changingcells that matches all input elements in the travelExp table that belong to the sum class.
+      var changingCells = document.querySelectorAll('input[class="sum]');
+      // b. For every item in the changingCells collection, adds an onchange event handler that runs calcExp() function.
+      for (var i = 0; i < changingCells.length; i++) {
+
+      }
+
+      // c. For the button with the ID “submitButton”, adds an event handler for the click event that runs the validateSummary() function when the button is clicked.
+
+
+});
+
+
 
 
 

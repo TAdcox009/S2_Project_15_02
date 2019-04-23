@@ -65,38 +65,30 @@
           Ext. 1250
         </p>
       </aside>
-
-      <!-- 3. Scroll down to the empInfo table and add pattern attributes to the following fields using regular expressions (Note: Regular expressions in the HTML pattern attribute do not include the opening and closing / character): 
-
-
-a. The accID field should consist only of the letters “ACT” followed by exactly 6 digits.
-
-b. The deptID field should consist only of the letters “DEPT” followed by 4 to 6 digits.
-
-c. The projID field should consist only of the letters “PROJ” followed by a dash and then two lowercase letters followed by another dash and 3 digits.
-
-d. The ssn field should consist only of 3 digits followed by a dash followed by 2 more digits fol- lowed by a dash, ending with 4 more digits. -->
-
       <table id="empInfo">
         <tr>
           <th>Last Name<span>*</span></th>
           <th>First Name<span>*</span></th>
           <th>M.I.</th>
           <th>Account<span>*</span></th>
-          <td><input type="text" name="accID" id="accID" placeholder="ACTnnnnnn" required /></td>
+          <!-- Made regex pattern for the accID, deptID, ssn, and projID input  elements.-->
+          <td><input type="text" name="accID" id="accID" placeholder="ACTnnnnnn" required pattern="ACT\d{6}" /></td>
         </tr>
         <tr>
           <td><input type="text" name="lname" id="lname" required /></td>
           <td><input type="text" name="fname" id="fname" required /></td>
           <td><input type="text" name="init" id="init" required /></td>
           <th>Department<span>*</span></th>
-          <td><input type="text" name="deptID" id="deptID" required placeholder="DEPTnnnnnn" /></td>
+          <td><input type="text" name="deptID" id="deptID" required placeholder="DEPTnnnnnn" pattern="DEPT\d{4,6}" />
+          </td>
         </tr>
         <tr>
           <th>Social Security Number<span>*</span></th>
-          <td colspan="2"><input type="text" name="ssn" id="ssn" required placeholder="nnn-nn-nnnn" /></td>
+          <td colspan="2"><input type="text" name="ssn" id="ssn" required placeholder="nnn-nn-nnnn"
+              pattern="\d{3}-\d{2}-\d{4}" /></td>
           <th>Project<span>*</span></th>
-          <td><input type="text" name="projID" id="projID" required placeholder="PROJ-xx-ddd" /></td>
+          <td><input type="text" name="projID" id="projID" required placeholder="PROJ-xx-ddd"
+              pattern="PROJ\D[a-z]{2}\D\d{3}" /></td>
         </tr>
       </table>
 

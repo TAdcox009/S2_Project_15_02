@@ -31,57 +31,62 @@
       
 */
 
-// 5. Return to the dl_expenses.js file in your editor. Directly below the initial comment section, add an event listener for the load event. Apply an anonymous function to the load event that does the following: 
+// Adds an event listener for the load event and applies an anonymous function to the load event.
 window.addEventListener("load", function () {
-      //a. Declares a variable named changingcells that matches all input elements in the travelExp table that belong to the sum class.
-      var changingCells = document.querySelectorAll('input[class="sum]');
-      // b. For every item in the changingCells collection, adds an onchange event handler that runs calcExp() function.
+      // Matches all input elements in the travelExp table.
+      var changingCells = document.querySelectorAll('table#travelExp input.sum');
+      // Every item in the changingCells collection, adds an onchange event handler that runs calcExp() function.
       for (var i = 0; i < changingCells.length; i++) {
             changingCells[i].onchange = calcExp;
       }
-
-       // c. For the button with the ID “submitButton”, adds an event handler for the click event that runs the validateSummary() function when the button is clicked.
-      document.getElementById("submitButton").onclick = validateSummary;
+      // Adds an event handler for the click event that will run the validateSummary() function when the button is clicked.
+      document.getElementById("submitButton").onclick = function () {
+            validateSummary();
+      };
 });
 
-//6. Kay wants a customized validation message if employees neglect to fill out the summary field that provides a summary of the travel expenses. Create the validateSummary() function that dis- plays the message “You must include a summary of the trip in your report.” if the validation state of the summary field value is missing; otherwise set the custom validation message to an empty text string.
+// Displays the custom message if the validation state of the summary field value is missing.
 function validateSummary() {
-      var validate = document.getElementById("summary");
-      if (validate.validity.valueMissing) {
-            validate.setCustomValidity("You must include a summary of the trip in your report.")
+      var summary = document.getElementById("summary");
+      if (summary.validity.valueMissing) {
+            summary.setCustomValidity("You must include a summary of the trip in your report.")
       } else {
-            validate.setCustomValidity("");
-      };
-}
-
-//7. Create the calcClass() function with a single parameter sumclass. The purpose of this function is to sum the values of input elements belonging to the sumClass class of elements. Add the following commands to the function:
-function calcClass(sumClass) {
-//a. Create a variable named sumFields containing the object collection of all elements belonging to the sumClass class.
-var sumFields = document.getElementsByClassName("sumClass");
-
-//b. Create a variable named sumtotal that will be used to keep a running total of the total values in the input elements in the sumFields object collection. Set the initial value of sumTotal to 0. 
-var sumTotal = 0;
-
-//c. Loop through the items in the sumFields object collection. For each item, declare a variable named itemvalue equal to the numeric value of the current input element in the sumFields array. (Hint: Use the parseFloat() function to extract the numeric value.) If itemValue is a numeric value, add it to itemValue. (Hint: Use the isNaN() function to determine whether itemValue is or is not a number.)
-for (var i = 0; i < sumFields.length; i++) {
-      var itemValue = parseFloat(sumFields);
-      if (itemValue === isNaN()) {
-
-      } else {
-
+            summary.setCustomValidity("");
       }
 }
 
-//d. After the for loop, return the value of sumTotal.
-return sumTotal;
+// This function is to sum the values of input elements.
+function calcClass(sumClass) {
+      // Contains the object collection of all elements belonging to the sumClass class.
+      var sumFields = document.getElementsByClassName(sumClass);
+      // Sets the value of sumTotal to 0. 
+      var sumTotal = 0;
+      // Declares a variable named itemvalue equal to the value of the input element in the sumFields array using the parseFloat() function to get the value. If itemValue is a numeric value, it will add it to itemValue using the isNaN() function to determine whether itemValue is a number or not.
+      for (var i = 0; i < sumFields.length; i++) {
+            var itemValue = parseFloat(sumFields[i].value);
+            if (!isNaN(itemValue)) {
+                  sumTotal += itemValue;
+            }
+      }
+      // Returna the value of sumTotal.
+      return sumTotal;
 }
 
-
-
-
-
-
-
+// This function is to calculate the row and column totals from the travelExp table.
+function calcExp() {
+      var expTable = document.querySelectorAll("table#travelExp tbody tr");
+      // Loops through the rows in the expTable collection and sets the value of the input element with the ID subtotalIndex to the value returned by the calcClass() function 
+      for (var i = 0; i < expTable.length; i++) {
+            document.getElementById("subtotal" + i).value = formatNumber(calcClass("date" + i), 2);
+      }
+      // Sets the values of the transTotal, lodgeTotal, mealTotal, and otherTotal input elements using the formatNumber() to 2 decimal places.
+      document.getElementById("transTotal").value = formatNumber(calcClass("trans"), 2);
+      document.getElementById("lodgeTotal").value = formatNumber(calcClass("lodge"), 2);
+      document.getElementById("mealTotal").value = formatNumber(calcClass("meal"), 2);
+      document.getElementById("otherTotal").value = formatNumber(calcClass("other"), 2);
+      // Sets the value of the expTotal input element to the value returned by the calcClass() function. it is being formatted using the formatUSCurrency() function.
+      document.getElementById("expTotal").value = formatUSCurrency(calcClass("sum"));
+}
 
 
 function formatNumber(val, decimals) {
